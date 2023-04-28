@@ -1,6 +1,6 @@
-using REPLACE_PKG
+using JLACovarianceMatrix
 using Test
 
-@testset "REPLACE_PKG.jl" begin
+@testset "JLACovarianceMatrix.jl" begin
     # Write your tests here.
 end

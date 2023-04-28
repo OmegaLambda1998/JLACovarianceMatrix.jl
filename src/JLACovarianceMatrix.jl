@@ -1,4 +1,4 @@
-module REPLACE_PKG
+module JLACovarianceMatrix
 
 # External packages
 using TOML
@@ -7,7 +7,7 @@ using ArgParse
 
 # Internal Packages
 include("RunModule.jl")
-using .RunModule: run_REPLACE_PKG
+using .RunModule: run_JLACovarianceMatrix
 
 # Exports
 export main 
@@ -40,7 +40,7 @@ function main()
     verbose = args["verbose"]
     toml_path = args["input"]
     toml = setup_input(toml_path, verbose)
-    run_REPLACE_PKG(toml)
+    run_JLACovarianceMatrix(toml)
 end
 
 if abspath(PROGRAM_FILE) == @__FILE__

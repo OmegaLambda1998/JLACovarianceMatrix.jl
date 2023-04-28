@@ -1,4 +1,4 @@
-# REPLACE_PKG Documentation
+# JLACovarianceMatrix Documentation
 
 ```@contents
 ```
@@ -6,4 +6,4 @@
 ## Install
 ```
 using Pkg
-Pkg.add("REPLACE_PKG")
+Pkg.add("JLACovarianceMatrix")

@@ -1,13 +1,14 @@
 using Documenter
-using REPLACE_PKG
+push!(LOAD_PATH, "../src/")
+using JLACovarianceMatrix
 
-DocMeta.setdocmeta!(REPLACE_PKG, :DocTestSetup, :(using REPLACE_PKG); recursive=true)
+DocMeta.setdocmeta!(JLACovarianceMatrix, :DocTestSetup, :(using JLACovarianceMatrix); recursive=true)
 
 makedocs(
-    sitename="REPLACE_PKG Documentation",
-    modules = [REPLACE_PKG, BetterInputFiles.SetupModule],
+    sitename="JLACovarianceMatrix Documentation",
+    modules = [JLACovarianceMatrix],
     pages = [
-        "REPLACE_PKG" => "index.md",
+        "JLACovarianceMatrix" => "index.md",
     ],
     format = Documenter.HTML(
         assets = ["assets/favicon.ico"],
@@ -15,5 +16,5 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/OmegaLambda1998/REPLACE_PKG.jl.git"
+    repo = "github.com/OmegaLambda1998/JLACovarianceMatrix.jl.git"
 )
