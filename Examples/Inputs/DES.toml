@@ -1,0 +1,73 @@
+[ global ]
+    output_path = "../Outputs/DES"
+
+[ CovarianceMatrix ]
+
+    [ CovarianceMatrix.Instrument.DES ]
+        Astrometry = 0.001
+        NonLinearity = 0.001
+        PhotometricZeroPointing = 0.002
+        PhotometricBias = 0.003
+        Uniformity = 0.00381 # 0.0066 / √3
+        Filters =               ["g",   "r",    "i",    "z"]
+        ABUncertainty =         [0.002, 0.002,  0.001,  0.005]
+        SuperCalCorrection =    [0.0,   0.0,    0.0,    0.0]
+        FilterUncertainty =     [0.6,   0.6,    0.6,    0.6]
+        CentralWavelength =     [481,   644,    781,    913]
+
+# All uncertainties taken from Betoule et. al. 2014 and Scolnic et. al. 2018
+    [ CovarianceMatrix.Instrument.SNLS ]
+        Filters =               ["g",   "r",    "i",    "z"]
+        ZPUncertainty =         [0.002, 0.002,  0.002,  0.002]
+        SuperCalCorrection =    [0.007, -0.001, -0.006, 0.002] 
+        FilterUncertainty =     [0.3,   1.0,    3.1,    0.6]
+        CentralWavelength =     [475,   640,    766,    925]
+
+    [ CovarianceMatrix.Instrument.SDSS ]
+        Filters =               ["u",   "g",    "r",    "i",    "z"]
+        ZPUncertainty =         [0.023, 0.002,  0.002,  0.002,  0.002]
+        SuperCalCorrection =    [0.0,   -0.003, 0.004,  0.001,  -0.008]
+        FilterUncertainty =     [0.7,   0.6,    0.6,    0.6,    0.6]
+        CentralWavelength =     [355,   487,    617,    748,    893]
+
+    [ CovarianceMatrix.Instrument.Standard ]
+        Filters =               ["U",   "B",    "V",    "R",    "I"]
+        ZPUncertainty =         [0.1,   0.015,  0.015,  0.015,  0.015]
+        SuperCalCorrection =    [0.0,   0.033,  0.004,  0.0,    -0.007]
+        FilterUncertainty =     [2.5,   1.2,    1.2,    1.2,    1.2]
+        CentralWavelength =     [360,   436,    454,    720,    820]
+
+    [ CovarianceMatrix.Instrument.CfA3S ]
+        Filters =               ["Us",  "B",    "V",    "R",    "I"]
+        ZPUncertainty =         [0.07,  0.006,  0.004,  0.003,  0.005]
+        SuperCalCorrection =    [0.0,   -0.034, -0.009, -0.02,  -0.006]
+        FilterUncertainty =     [2.5,   0.7,    0.7,    0.7,    0.7]
+        CentralWavelength =     [360,   436,   545,    720,    820]
+
+    [ CovarianceMatrix.Instrument.CfA3K ]
+        Filters =               ["r",   "i",    "Us",   "B",    "V"]
+        ZPUncertainty =         [0.003, 0.005,  0.031,  0.006,  0.004]
+        SuperCalCorrection =    [0.006, -0.003, 0.0,    -0.031, -0.006]
+        FilterUncertainty =     [0.7,   0.7,    2.5,    0.7,    0.7]
+        CentralWavelength =     [360,   640,   776,    436,    545]
+
+    [ CovarianceMatrix.Instrument.CfA4_1 ]
+        Filters =               ["r",   "i",    "B",    "V"]
+        ZPUncertainty =         [0.003, 0.005,  0.006,  0.004]
+        SuperCalCorrection =    [0.006, -0.003, -0.031, -0.006]
+        FilterUncertainty =     [0.7,   0.7,    0.7,    0.7]
+        CentralWavelength =     [640,   776,    436,    545]
+
+    [ CovarianceMatrix.Instrument.CfA4_2 ]
+        Filters =               ["r",   "i",    "B",    "V"]
+        ZPUncertainty =         [0.003, 0.005,  0.006,  0.004]
+        SuperCalCorrection =    [0.006, -0.003, -0.031, -0.006]
+        FilterUncertainty =     [0.7,   0.7,    0.7,    0.7]
+        CentralWavelength =     [640,   776,    436,    545]
+
+    [ CovarianceMatrix.Instrument.CSP ]
+        Filters =               ["u",   "g",    "r",    "i",    "B",    "V",    "V1",   "V2"]
+        ZPUncertainty =         [0.023, 0.004,  0.003,  0.005,  0.005,  0.005, 0.005,   0.005]
+        SuperCalCorrection =    [0.0,   0.009,  0.001,  -0.016, -0.008, 0.002, 0.002,   0.002]
+        FilterUncertainty =     [0.7,   0.8,    0.4,    0.2,    0.7,    0.3,    0.3,    0.3]
+        CentralWavelength =     [360,   477,   621,    754,    436,    545,    545,    545]

@@ -6,7 +6,13 @@ version = "0.1.0"
 [deps]
 ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
 BetterInputFiles = "c0b1955d-4702-4680-a946-720482e78a48"
+Combinatorics = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+UnitfulAstro = "6112ee07-acf9-5e0f-b108-d242c714bf9f"
 
 [compat]
 julia = "1"
