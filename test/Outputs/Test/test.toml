@@ -1,0 +1,17 @@
+
+[COVARIANCEMATRIX.INSTRUMENT.TEST]
+CENTRALWAVELENGTH = [100, 200, 300, 400]
+SUPERCALCORRECTION = [0.01, 0.01, 0.01, 0.01]
+FILTERS = ["a", "b", "c", "d"]
+FILTERUNCERTAINTY = [1.0, 1.0, 1.0, 1.0]
+ZPUNCERTAINTY = [0.01, 0.01, 0.01, 0.01]
+[GLOBAL]
+BASE_PATH = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Inputs/"
+INPUT_PATH = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Inputs"
+LOG_FILE = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Outputs/Test/log.txt"
+LOGGING = true
+OUTPUT_PATH = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Outputs/Test"
+
+[METADATA]
+ORIGINAL = "Inputs/test.toml"
+DATE = "2023-05-08"

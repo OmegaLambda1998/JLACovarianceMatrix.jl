@@ -1,0 +1,13 @@
+[COVARIANCEMATRIX]
+INPUT = "../Outputs/Test/DES.jld2"
+
+[GLOBAL]
+BASE_PATH = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Inputs/"
+INPUT_PATH = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Inputs"
+LOG_FILE = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Outputs/TestLoad/log.txt"
+LOGGING = true
+OUTPUT_PATH = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Outputs/TestLoad"
+
+[METADATA]
+ORIGINAL = "Inputs/test_load.toml"
+DATE = "2023-05-08"

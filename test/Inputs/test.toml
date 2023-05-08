@@ -1,0 +1,10 @@
+[ global]
+    output_path = "../Outputs/Test"
+
+[ CovarianceMatrix ]
+    [ CovarianceMatrix.Instrument.Test ]
+        Filters = ["a", "b", "c", "d"]
+        ZPUncertainty = [0.01, 0.01, 0.01, 0.01]
+        SuperCalCorrection = [0.01, 0.01, 0.01, 0.01]
+        FilterUncertainty = [1.0, 1.0, 1.0, 1.0]
+        CentralWavelength = [100, 200, 300, 400]

@@ -40,6 +40,10 @@ function main()
     verbose = args["verbose"]
     toml_path = args["input"]
     toml = setup_input(toml_path, verbose)
+    main(toml)
+end
+
+function main(toml::Dict{String, Any})
     run_JLACovarianceMatrix(toml)
 end
 

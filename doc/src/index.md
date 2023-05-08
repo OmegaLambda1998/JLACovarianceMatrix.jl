@@ -58,5 +58,5 @@ You can also do some basic analysis, such as plotting and drawing random offsets
     output = "Draw"
     [ Analysis.draw ]
         num = 100 # Draw 100 random offsets
-        template = saltjacobian.toml # Place the 100 random offsets into this SALTJacobian template
+        template = "saltjacobian.toml" # Place the 100 random offsets into this SALTJacobian template
 ```

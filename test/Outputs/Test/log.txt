@@ -1,0 +1,6 @@
+BetterInputFiles.SetupModule | [Info] Logging to /home/patricka/.julia/dev/JLACovarianceMatrix/test/Outputs/Test/log.txt
+JLACovarianceMatrix.RunModule | [Info] Loading in instruments
+JLACovarianceMatrix.RunModule | [Info] Loading in TEST
+JLACovarianceMatrix.RunModule | [Info] Finished loading in instruments
+JLACovarianceMatrix.RunModule | [Info] Creating Covariance Matrix
+JLACovarianceMatrix.RunModule | [Info] Finished creating Covariance Matrix

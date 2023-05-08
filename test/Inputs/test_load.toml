@@ -1,0 +1,5 @@
+[ global ]
+    output_path = "../Outputs/TestLoad"
+
+[ CovarianceMatrix ]
+    input = "../Outputs/Test/DES.jld2"
