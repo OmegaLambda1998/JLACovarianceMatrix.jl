@@ -1,16 +1,15 @@
 module RunModule
 
 # External Packages
-using Reexport
 
 const SRC_DIR = dirname(@__FILE__)
 
 # Internal Packages
 include(joinpath(SRC_DIR, "InstrumentModule.jl"))
-@reexport using .InstrumentModule
+using .InstrumentModule
 
 include(joinpath(SRC_DIR, "CovarianceModule.jl"))
-@reexport using .CovarianceModule
+using .CovarianceModule
 
 
 # Exports
@@ -47,7 +46,7 @@ function run_JLACovarianceMatrix(toml::Dict{String,Any})
         # Only load analysis module if needed
         # Saves from compiling Makie if not needed
         include(joinpath(SRC_DIR, "AnalysisModule.jl"))
-        @eval @reexport using .AnalysisModule
+        @eval using .AnalysisModule
 
         for analysis in toml["ANALYSIS"]
             output = get(analysis, "OUTPUT", "Output")
