@@ -1,0 +1,9 @@
+[ global ]
+    output_path = "../Outputs/DESAnalysis"
+
+[ CovarianceMatrix ]
+    input = "../Outputs/DES/DES.jld2"
+
+[[ Analysis ]]
+    output = "Plots"
+    [ Analysis.plot ]

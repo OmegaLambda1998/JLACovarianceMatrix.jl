@@ -1,8 +1,0 @@
-[ global ]
-    output_path = "../Outputs/DESDraw"
-
-[ CovarianceMatrix ]
-    input = "../Outputs/DES/DES.jld2"
-
-[ Analysis ]
-    draw = 1

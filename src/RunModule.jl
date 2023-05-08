@@ -1,14 +1,17 @@
 module RunModule
 
 # External Packages
-using Distributions
+using Reexport
+
+const SRC_DIR = dirname(@__FILE__)
 
 # Internal Packages
-include("InstrumentModule.jl")
-using .InstrumentModule
+include(joinpath(SRC_DIR, "InstrumentModule.jl"))
+@reexport using .InstrumentModule
 
-include("CovarianceModule.jl")
-using .CovarianceModule
+include(joinpath(SRC_DIR, "CovarianceModule.jl"))
+@reexport using .CovarianceModule
+
 
 # Exports
 export run_JLACovarianceMatrix
@@ -41,15 +44,23 @@ function run_JLACovarianceMatrix(toml::Dict{String,Any})
     end
     saveCovarianceMatrix(covariance_matrix, joinpath(toml["GLOBAL"]["OUTPUT_PATH"], "$(name).jld2"))
     if "ANALYSIS" in keys(toml)
-        analysis = toml["ANALYSIS"]
-        if "DRAW" in keys(analysis)
-            cov_mat = generateMatrix(covariance_matrix)
-            d = MvNormal(zeros(Float64, size(cov_mat, 1)), cov_mat)
-            rand_draw = rand(d, analysis["DRAW"])
-            filter = Dict(k => rand_draw[i] for (i, k) in enumerate(covariance_matrix.keys))
-            zp = Dict(k => rand_draw[i+length(covariance_matrix.keys)] for (i, k) in enumerate(covariance_matrix.keys))
-            @show filter
-            @show zp
+        # Only load analysis module if needed
+        # Saves from compiling Makie if not needed
+        include(joinpath(SRC_DIR, "AnalysisModule.jl"))
+        @eval @reexport using .AnalysisModule
+
+        for analysis in toml["ANALYSIS"]
+            output = get(analysis, "OUTPUT", "Output")
+            if !isabspath(output)
+                output = joinpath(toml["GLOBAL"]["OUTPUT_PATH"], output)
+            end
+            output = abspath(output)
+            if !isdir(output)
+                mkdir(output)
+            end
+            if "PLOT" in keys(analysis)
+                Base.invokelatest(plot_covariance_matrix, covariance_matrix, output)
+            end
         end
     end
 end

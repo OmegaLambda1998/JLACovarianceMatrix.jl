@@ -8,12 +8,14 @@ using ..InstrumentModule
 using JLD2
 using LinearAlgebra
 using Combinatorics
+using Distributions
 
 # Exports
 export CovarianceMatrix
 export saveCovarianceMatrix
 export loadCovarianceMatrix
 export generateMatrix
+export generateDistribution
 
 
 struct CovarianceMatrix
@@ -94,6 +96,12 @@ function generateMatrix(covariance::CovarianceMatrix)
         cov_matrix += offset_matrix
     end
     return cov_matrix
+end
+
+function generateDistribution(covariance::CovarianceMatrix)
+    cov_mat = generateMatrix(covariance)
+    distribution = MvNormal(zeros(Float64, size(cov_mat, 1)), cov_mat)
+    return distribution
 end
 
 end

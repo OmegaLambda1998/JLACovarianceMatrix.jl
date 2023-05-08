@@ -1,0 +1,20 @@
+[ global ]
+    output_path = "../Outputs/DESOnly"
+
+[ CovarianceMatrix ]
+
+    [ CovarianceMatrix.Instrument.DES ]
+        Astrometry = 0.001
+        NonLinearity = 0.001
+        PhotometricZeroPointing = 0.002
+        PhotometricBias = 0.003
+        Uniformity = 0.00381 # 0.0066 / √3
+        Filters =               ["g",   "r",    "i",    "z"]
+        ABUncertainty =         [0.002, 0.002,  0.001,  0.005]
+        SuperCalCorrection =    [0.0,   0.0,    0.0,    0.0]
+        FilterUncertainty =     [0.6,   0.6,    0.6,    0.6]
+        CentralWavelength =     [481,   644,    781,    1513]
+
+[[ Analysis ]]
+    output = "Plots"
+    [ Analysis.plot ]

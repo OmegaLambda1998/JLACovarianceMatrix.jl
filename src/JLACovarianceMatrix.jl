@@ -4,10 +4,11 @@ module JLACovarianceMatrix
 using TOML
 using BetterInputFiles 
 using ArgParse
+using Reexport
 
 # Internal Packages
 include("RunModule.jl")
-using .RunModule: run_JLACovarianceMatrix
+@reexport using .RunModule: run_JLACovarianceMatrix
 
 # Exports
 export main 
