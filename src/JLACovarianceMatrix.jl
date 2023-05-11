@@ -12,7 +12,7 @@ using .RunModule: run_JLACovarianceMatrix
 # Exports
 export main
 
-Base.@ccallable function julia_main()::Cint
+function julia_main()::Cint
     try
         main()
     catch
