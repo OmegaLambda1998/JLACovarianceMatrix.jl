@@ -14,7 +14,7 @@ export JLACovarianceMatrix
 
 function julia_main()::Cint
     try
-        main()
+        JLACovarianceMatrix()
     catch
         Base.invokelatest(Base.display_error, Base.catch_stack())
         return 1
