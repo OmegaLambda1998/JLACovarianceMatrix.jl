@@ -10,11 +10,12 @@ include("RunModule.jl")
 using .RunModule: run_JLACovarianceMatrix
 
 # Exports
-export JLACovarianceMatrix
+export main
+export run_JLACovarianceMatrix
 
 function julia_main()::Cint
     try
-        JLACovarianceMatrix()
+        main()
     catch
         Base.invokelatest(Base.display_error, Base.catch_stack())
         return 1
@@ -35,20 +36,20 @@ function get_args()
     return parse_args(s)
 end
 
-function JLACovarianceMatrix()
+function main()
     args = get_args()
     verbose = args["verbose"]
     toml_path = args["input"]
     toml = setup_input(toml_path, verbose)
-    return JLACovarianceMatrix(toml)
+    return main(toml)
 end
 
-function JLACovarianceMatrix(toml::Dict{String,Any})
+function main(toml::Dict{String,Any})
     return run_JLACovarianceMatrix(toml)
 end
 
 if abspath(PROGRAM_FILE) == @__FILE__
-    JLACovarianceMatrix()
+    main()
 end
 
 end
