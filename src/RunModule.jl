@@ -58,10 +58,14 @@ function run_JLACovarianceMatrix(toml::Dict{String,Any})
                 mkdir(output)
             end
             if "PLOT" in keys(analysis)
-                Base.invokelatest(plot_covariance_matrix, covariance_matrix, output)
+                Base.invokelatest(plot_covariance_matrix, covariance_matrix, analysis["PLOT"], output)
+            end
+            if "DRAW" in keys(analysis)
+                Base.invokelatest(draw_covariance_matrix, covariance_matrix, analysis["DRAW"], output)
             end
         end
     end
+    return covariance_matrix
 end
 
 end

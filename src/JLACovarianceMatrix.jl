@@ -2,7 +2,7 @@ module JLACovarianceMatrix
 
 # External packages
 using TOML
-using BetterInputFiles 
+using BetterInputFiles
 using ArgParse
 
 # Internal Packages
@@ -10,7 +10,7 @@ include("RunModule.jl")
 using .RunModule: run_JLACovarianceMatrix
 
 # Exports
-export main 
+export main
 
 Base.@ccallable function julia_main()::Cint
     try
@@ -26,11 +26,11 @@ function get_args()
     s = ArgParseSettings()
     @add_arg_table s begin
         "--verbose", "-v"
-            help = "Increase level of logging verbosity"
-            action = :store_true
+        help = "Increase level of logging verbosity"
+        action = :store_true
         "input"
-            help = "Path to .toml file"
-            required = true
+        help = "Path to .toml file"
+        required = true
     end
     return parse_args(s)
 end
@@ -40,11 +40,11 @@ function main()
     verbose = args["verbose"]
     toml_path = args["input"]
     toml = setup_input(toml_path, verbose)
-    main(toml)
+    return main(toml)
 end
 
-function main(toml::Dict{String, Any})
-    run_JLACovarianceMatrix(toml)
+function main(toml::Dict{String,Any})
+    return run_JLACovarianceMatrix(toml)
 end
 
 if abspath(PROGRAM_FILE) == @__FILE__

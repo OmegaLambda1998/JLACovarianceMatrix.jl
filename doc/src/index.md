@@ -58,5 +58,6 @@ You can also do some basic analysis, such as plotting and drawing random offsets
     output = "Draw"
     [ Analysis.draw ]
         num = 100 # Draw 100 random offsets
-        template = "saltjacobian.toml" # Place the 100 random offsets into this SALTJacobian template
+        SALTJacobian = "trainopts.toml "# Poduce a `.toml` file which can be included in a SALTJacobian.jl run
 ```
+If `SALTJacobian` is not specified, then the drawn offsets will simply be logged. 
