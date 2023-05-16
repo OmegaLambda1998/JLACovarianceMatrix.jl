@@ -14,6 +14,7 @@ using .CovarianceModule
 
 # Exports
 export run_JLACovarianceMatrix
+export CovarianceMatrix
 
 function run_JLACovarianceMatrix(toml::Dict{String,Any})
     config = get(toml, "COVARIANCEMATRIX", Dict{String,Any}())

@@ -12,6 +12,7 @@ using .RunModule: run_JLACovarianceMatrix
 # Exports
 export main
 export run_JLACovarianceMatrix
+export CovarianceMatrix
 
 function julia_main()::Cint
     try
