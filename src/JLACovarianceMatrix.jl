@@ -7,12 +7,14 @@ using ArgParse
 
 # Internal Packages
 include("RunModule.jl")
-using .RunModule: run_JLACovarianceMatrix
+using .RunModule
 
 # Exports
 export main
 export run_JLACovarianceMatrix
 export CovarianceMatrix
+
+@show "JLACovarianceMatrix", CovarianceMatrix
 
 function julia_main()::Cint
     try

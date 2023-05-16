@@ -16,6 +16,8 @@ using .CovarianceModule
 export run_JLACovarianceMatrix
 export CovarianceMatrix
 
+@show "RunModule", CovarianceMatrix
+
 function run_JLACovarianceMatrix(toml::Dict{String,Any})
     config = get(toml, "COVARIANCEMATRIX", Dict{String,Any}())
     name = get(config, "NAME", "DES")

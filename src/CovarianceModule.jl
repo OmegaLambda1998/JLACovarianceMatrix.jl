@@ -24,6 +24,8 @@ struct CovarianceMatrix
     FilterUncertainty::Vector{Float64}
 end
 
+@show "CovarianceModule", CovarianceMatrix
+
 # Constants
 const SLOPE = 0.005
 const WAVE_START = 300.0 # nm
