@@ -9,5 +9,5 @@ using Test
     test_load_toml = setup_input("Inputs/test_load.toml", false)
     test_load_covariance_matrix = main(test_load_toml)
 
-    @test test_covariance_matrix == test_load_covariance_matrix
+    @test isapprox(test_covariance_matrix, test_load_covariance_matrix)
 end

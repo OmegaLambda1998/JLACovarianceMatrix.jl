@@ -13,5 +13,5 @@ LOGGING = true
 OUTPUT_PATH = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Outputs/Test"
 
 [METADATA]
-ORIGINAL = "Inputs/test.toml"
-DATE = "2023-05-08"
+ORIGINAL = "/home/patricka/.julia/dev/JLACovarianceMatrix/test/Inputs/test.toml"
+DATE = "2023-05-16"

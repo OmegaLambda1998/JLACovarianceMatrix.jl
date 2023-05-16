@@ -6,15 +6,13 @@ using BetterInputFiles
 using ArgParse
 
 # Internal Packages
-include("RunModule.jl")
+include(joinpath(@__DIR__, "RunModule.jl"))
 using .RunModule
 
 # Exports
 export main
 export run_JLACovarianceMatrix
 export CovarianceMatrix
-
-@show "JLACovarianceMatrix", CovarianceMatrix
 
 function julia_main()::Cint
     try
@@ -28,7 +26,7 @@ end
 
 function get_args()
     s = ArgParseSettings()
-    @add_arg_table s begin
+    @add_arg_table! s begin
         "--verbose", "-v"
         help = "Increase level of logging verbosity"
         action = :store_true

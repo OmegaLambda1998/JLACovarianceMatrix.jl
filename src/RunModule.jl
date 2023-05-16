@@ -2,21 +2,17 @@ module RunModule
 
 # External Packages
 
-const SRC_DIR = dirname(@__FILE__)
-
 # Internal Packages
-include(joinpath(SRC_DIR, "InstrumentModule.jl"))
+include(joinpath(@__DIR__, "InstrumentModule.jl"))
 using .InstrumentModule
 
-include(joinpath(SRC_DIR, "CovarianceModule.jl"))
+include(joinpath(@__DIR__, "CovarianceModule.jl"))
 using .CovarianceModule
 
 
 # Exports
 export run_JLACovarianceMatrix
 export CovarianceMatrix
-
-@show "RunModule", CovarianceMatrix
 
 function run_JLACovarianceMatrix(toml::Dict{String,Any})
     config = get(toml, "COVARIANCEMATRIX", Dict{String,Any}())

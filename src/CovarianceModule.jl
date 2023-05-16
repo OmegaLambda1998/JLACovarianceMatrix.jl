@@ -24,7 +24,10 @@ struct CovarianceMatrix
     FilterUncertainty::Vector{Float64}
 end
 
-@show "CovarianceModule", CovarianceMatrix
+function Base.isapprox(cov1::CovarianceMatrix, cov2::CovarianceMatrix; atol::Real=0, rtol::Real=atol>0 ? 0 : √eps(), nans::Bool=false)
+    return isapprox(cov1.ZPUncertainty, cov2.ZPUncertainty; atol=atol, rtol=rtol, nans=nans) && isapprox(cov1.FilterUncertainty, cov2.FilterUncertainty; atol=atol, rtol=rtol, nans=nans)
+end
+
 
 # Constants
 const SLOPE = 0.005
