@@ -14,6 +14,7 @@ export main
 export run_JLACovarianceMatrix
 export CovarianceMatrix
 export loadCovarianceMatrix, saveCovarianceMatrix
+export draw_covariance_matrix
 
 function julia_main()::Cint
     try
