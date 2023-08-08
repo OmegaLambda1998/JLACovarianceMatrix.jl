@@ -16,7 +16,21 @@ export saveCovarianceMatrix
 export loadCovarianceMatrix
 export generateMatrix
 export generateDistribution
+export draw_covariance_matrix
+export get_uncertainty_sample
 
+# Convert from CovarianceMatrix name to SALT2 name (which then gets converted to SNANA name later on)
+const MAPPING = Dict{String,String}(
+    "CFA3K" => "CfA3_KEPLERCAM",
+    "CFA3S" => "CfA3_STANDARD",
+    "CFA4_1" => "CfA1",
+    "CFA4_2" => "CfA2",
+    "CSP" => "CSP",
+    "DES" => "DES",
+    "SDSS" => "SDSS",
+    "SNLS" => "SNLS",
+    "STANDARD" => "STANDARD"
+)
 
 struct CovarianceMatrix
     keys::Vector{String}
@@ -24,7 +38,7 @@ struct CovarianceMatrix
     FilterUncertainty::Vector{Float64}
 end
 
-function Base.isapprox(cov1::CovarianceMatrix, cov2::CovarianceMatrix; atol::Real=0, rtol::Real=atol>0 ? 0 : √eps(), nans::Bool=false)
+function Base.isapprox(cov1::CovarianceMatrix, cov2::CovarianceMatrix; atol::Real=0, rtol::Real=atol > 0 ? 0 : √eps(), nans::Bool=false)
     return isapprox(cov1.ZPUncertainty, cov2.ZPUncertainty; atol=atol, rtol=rtol, nans=nans) && isapprox(cov1.FilterUncertainty, cov2.FilterUncertainty; atol=atol, rtol=rtol, nans=nans)
 end
 
@@ -107,6 +121,56 @@ function generateDistribution(covariance::CovarianceMatrix)
     cov_mat = generateMatrix(covariance)
     distribution = MvNormal(zeros(Float64, size(cov_mat, 1)), cov_mat)
     return distribution
+end
+
+function get_uncertainty_sample(covariance_matrix::CovarianceMatrix, num=10000)
+    @info "Generating uncertainty sample"
+    distribution = generateDistribution(covariance_matrix)
+    rand_draws = rand(distribution, num)
+    filter = Dict(k => rand_draws[i, :] for (i, k) in enumerate(covariance_matrix.keys))
+    zp = Dict(k => rand_draws[i+length(covariance_matrix.keys), :] for (i, k) in enumerate(covariance_matrix.keys))
+    return filter, zp
+end
+
+function draw_covariance_matrix(covariance_matrix::CovarianceMatrix, config::Dict{String,Any}; output::Union{AbstractString,Nothing}=nothing)
+    num = get(config, "NUM", 100)
+    SALTJacobian = get(config, "SALTJACOBIAN", nothing)
+    d_filter, d_zp = get_uncertainty_sample(covariance_matrix, num)
+    if !isnothing(SALTJacobian)
+        samemag_list = get(config, "SURVEY_LIST_SAMEMAGSYS", Vector{String}())
+        if length(samemag_list) > 0
+            samemag = Dict{String,String}(mag => samemag_list[1] for mag in samemag_list[2:end])
+        else
+            samemag = Dict{String,String}()
+        end
+        samefilter_list = get(config, "SURVEY_LIST_SAMEFILTER", Vector{String}())
+        if length(samefilter_list) > 0
+            samefilter = Dict{String,String}(filter => samefilter_list[1] for filter in samefilter_list[2:end])
+        else
+            samefilter = Dict{String,String}()
+        end
+        for key in sort(covariance_matrix.keys)
+            spl = split(key, "_")
+            base_key = join(spl[1:end-1], "_")
+            band = spl[end]
+            instrument = MAPPING[base_key]
+            mag = get(samemag, instrument, instrument)
+            filter = get(samefilter, instrument, instrument)
+            d_filter["$(filter)_$(band)"] = d_filter[key]
+            delete!(d_filter, key)
+            d_zp["$(mag)_$(band)"] = d_zp[key]
+            delete!(d_zp, key)
+        end
+    end
+    if !isnothing(output)
+        d_filter_file = joinpath(output, "FilterUncertainty.jld2")
+        @info "Saving filter uncertainties to $d_filter_file"
+        d_zp_file = joinpath(output, "ZPUncertainty.jld2")
+        @info "Saving zp uncertainties to $d_zp_file"
+        save(d_filter_file, d_filter)
+        save(d_zp_file, d_zp)
+    end
+    return d_filter, d_zp
 end
 
 end

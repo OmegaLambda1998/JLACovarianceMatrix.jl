@@ -10,6 +10,7 @@ include(joinpath(@__DIR__, "CovarianceModule.jl"))
 using .CovarianceModule
 
 
+
 # Exports
 export run_JLACovarianceMatrix
 export CovarianceMatrix
@@ -44,11 +45,6 @@ function run_JLACovarianceMatrix(toml::Dict{String,Any})
     end
     saveCovarianceMatrix(covariance_matrix, joinpath(toml["GLOBAL"]["OUTPUT_PATH"], "$(name).jld2"))
     if "ANALYSIS" in keys(toml)
-        # Only load analysis module if needed
-        # Saves from compiling Makie if not needed
-        include(joinpath(SRC_DIR, "AnalysisModule.jl"))
-        @eval using .AnalysisModule
-
         for analysis in toml["ANALYSIS"]
             output = get(analysis, "OUTPUT", "Output")
             if !isabspath(output)
@@ -59,10 +55,15 @@ function run_JLACovarianceMatrix(toml::Dict{String,Any})
                 mkdir(output)
             end
             if "PLOT" in keys(analysis)
-                Base.invokelatest(plot_covariance_matrix, covariance_matrix, analysis["PLOT"], output)
+                include(joinpath(@__DIR__, "PlotModule.jl"))
+                @eval using .PlotModule
+
+                @info "Plotting Covariance Matrix"
+                @invokelatest plot_covariance_matrix(covariance_matrix, analysis["PLOT"], output)
             end
             if "DRAW" in keys(analysis)
-                Base.invokelatest(draw_covariance_matrix, covariance_matrix, analysis["DRAW"], output)
+                @info "Drawing from Covariance Matrix"
+                d_filter, d_zp = draw_covariance_matrix(covariance_matrix, analysis["DRAW"]; output=output)
             end
         end
     end
