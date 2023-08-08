@@ -9,6 +9,7 @@ makedocs(
     modules = [JLACovarianceMatrix],
     pages = [
         "JLACovarianceMatrix" => "index.md",
+        "API" => "api.md"
     ],
     format = Documenter.HTML(
         assets = ["assets/favicon.ico"],
