@@ -4,6 +4,7 @@ module JLACovarianceMatrix
 using TOML
 using BetterInputFiles
 using ArgParse
+using StatProfilerHTML
 
 # Internal Packages
 include(joinpath(@__DIR__, "RunModule.jl"))
@@ -32,6 +33,9 @@ function get_args()
         "--verbose", "-v"
         help = "Increase level of logging verbosity"
         action = :store_true
+        "--profile", "-p"
+        help = "Run profiler"
+        action = :store_true
         "input"
         help = "Path to .toml file"
         required = true
@@ -44,7 +48,12 @@ function main()
     verbose = args["verbose"]
     toml_path = args["input"]
     toml = setup_input(toml_path, verbose)
-    return main(toml)
+    if args["profile"]
+        @profilehtml covariance_matrix = main(toml)
+    else
+        covariance_matrix = main(toml)
+    end
+    return covariance_matrix
 end
 
 function main(toml::Dict{String,Any})
