@@ -55,11 +55,12 @@ function run_JLACovarianceMatrix(toml::Dict{String,Any})
                 mkdir(output)
             end
             if "PLOT" in keys(analysis)
+                # Only include PlotModule if needed to save on precompilation time if we don't need to use Makie
                 include(joinpath(@__DIR__, "PlotModule.jl"))
                 @eval using .PlotModule
 
                 @info "Plotting Covariance Matrix"
-                @invokelatest plot_covariance_matrix(covariance_matrix, analysis["PLOT"], output)
+                Base.invokelatest(plot_covariance_matrix, covariance_matrix, analysis["PLOT"], output)
             end
             if "DRAW" in keys(analysis)
                 @info "Drawing from Covariance Matrix"
