@@ -8,6 +8,5 @@
     output = "Draw"
     [ Analysis.draw ]
         num = 100
-        SALTJacobian = "trainopt.toml"
         SURVEY_LIST_SAMEMAGSYS = ["CFA3", "OTHER", "CALAN_TOLOLO"] 
         SURVEY_LIST_SAMEFILTER = ["CFA1", "CFA2", "CFA3", "CALAN_TOLOLO"]

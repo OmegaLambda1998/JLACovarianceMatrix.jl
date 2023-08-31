@@ -134,34 +134,38 @@ end
 
 function draw_covariance_matrix(covariance_matrix::CovarianceMatrix, config::Dict{String,Any}; output::Union{AbstractString,Nothing}=nothing)
     num = get(config, "NUM", 100)
-    SALTJacobian = get(config, "SALTJACOBIAN", nothing)
     d_filter, d_zp = get_uncertainty_sample(covariance_matrix, num)
-    if !isnothing(SALTJacobian)
-        samemag_list = get(config, "SURVEY_LIST_SAMEMAGSYS", Vector{String}())
-        if length(samemag_list) > 0
-            samemag = Dict{String,String}(mag => samemag_list[1] for mag in samemag_list[2:end])
-        else
-            samemag = Dict{String,String}()
-        end
-        samefilter_list = get(config, "SURVEY_LIST_SAMEFILTER", Vector{String}())
-        if length(samefilter_list) > 0
-            samefilter = Dict{String,String}(filter => samefilter_list[1] for filter in samefilter_list[2:end])
-        else
-            samefilter = Dict{String,String}()
-        end
-        for key in sort(covariance_matrix.keys)
-            spl = split(key, "_")
-            base_key = join(spl[1:end-1], "_")
-            band = spl[end]
-            instrument = MAPPING[base_key]
-            mag = get(samemag, instrument, instrument)
-            filter = get(samefilter, instrument, instrument)
+    @debug "Inital d_filters: $(length(d_filter)), inital d_zp: $(length(d_zp))"
+    samemag_list = get(config, "SURVEY_LIST_SAMEMAGSYS", Vector{String}())
+    if length(samemag_list) > 0
+        samemag = Dict{String,String}(mag => samemag_list[1] for mag in samemag_list[2:end])
+    else
+        samemag = Dict{String,String}()
+    end
+    samefilter_list = get(config, "SURVEY_LIST_SAMEFILTER", Vector{String}())
+    if length(samefilter_list) > 0
+        samefilter = Dict{String,String}(filter => samefilter_list[1] for filter in samefilter_list[2:end])
+    else
+        samefilter = Dict{String,String}()
+    end
+    for key in sort(covariance_matrix.keys)
+        spl = split(key, "_")
+        base_key = join(spl[1:end-1], "_")
+        band = spl[end]
+        instrument = MAPPING[base_key]
+        mag = get(samemag, instrument, instrument)
+        filter = get(samefilter, instrument, instrument)
+        @debug "$(key) => Filter: $(filter)_$(band) & ZP: $(mag)_$(band)"
+        if key != "$(filter)_$band"
             d_filter["$(filter)_$(band)"] = d_filter[key]
             delete!(d_filter, key)
+        end
+        if key != "$(mag)_$band"
             d_zp["$(mag)_$(band)"] = d_zp[key]
             delete!(d_zp, key)
         end
     end
+    @debug "Final d_filters: $(length(d_filter)), final d_zp: $(length(d_zp))"
     if !isnothing(output)
         d_filter_file = joinpath(output, "FilterUncertainty.jld2")
         @info "Saving filter uncertainties to $d_filter_file"
